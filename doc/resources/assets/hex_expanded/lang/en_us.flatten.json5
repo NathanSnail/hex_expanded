@@ -1,0 +1,8 @@
+{
+  hexdoc: {
+    hex_expanded: {
+      title: "Hex expanded Book",
+      description: "Hex expanded addon for Hex Casting",
+    },
+  }
+}

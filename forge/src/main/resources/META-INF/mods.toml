@@ -1,0 +1,46 @@
+modLoader = "kotlinforforge"
+loaderVersion = "[${versions.kotlin_forge},)"
+license = "MIT"
+
+[[mods]]
+modId = "hex_expanded"
+version = "${version}"
+displayName = "Hex expanded"
+logoFile = "assets/hex_expanded/icon.png"
+authors = "NathanSnail"
+description = "Hex expanded addon for Hex Casting"
+
+[[dependencies.hex_expanded]]
+modId = "forge"
+mandatory = true
+versionRange = "[${versions.forge_dependency},)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.hex_expanded]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[${versions.minecraft},)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.hex_expanded]]
+modId = "architectury"
+mandatory = true
+versionRange = "[${versions.architectury},)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.hex_expanded]]
+modId = "cloth_config"
+mandatory = true
+versionRange = "[${versions.cloth_config},)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.hex_expanded]]
+modId = "hexcasting"
+mandatory = true
+versionRange = "[${versions.hexcasting_dependency},)"
+ordering = "NONE"
+side = "BOTH"

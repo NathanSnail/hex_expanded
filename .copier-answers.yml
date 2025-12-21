@@ -1,0 +1,15 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+# https://copier.readthedocs.io/en/stable/updating/#never-change-the-answers-file-manually
+_commit: v2.2.3
+_src_path: gh:FallingColors/hexdummy
+advanced: false
+description: Hex expanded addon for Hex Casting
+display_name: Hex expanded
+github_repo: hex_expanded
+github_user: NathanSnail
+java_package: io.github.nathansnail.hex_expanded
+mappings_name: Mojmap
+minecraft_version_in_mod_version: true
+mit_license: true
+mod_version: 0.1.0
+modid: hex_expanded
