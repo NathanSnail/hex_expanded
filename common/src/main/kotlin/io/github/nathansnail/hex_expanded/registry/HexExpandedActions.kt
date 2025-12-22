@@ -8,8 +8,8 @@ import at.petrak.hexcasting.common.lib.HexRegistries
 import at.petrak.hexcasting.common.lib.hex.HexActions
 import io.github.nathansnail.hex_expanded.casting.actions.spells.OpCongratulate
 
-object Hex_expandedActions :
-        Hex_expandedRegistrar<ActionRegistryEntry>(
+object HexExpandedActions :
+        HexExpandedRegistrar<ActionRegistryEntry>(
                 HexRegistries.ACTION,
                 { HexActions.REGISTRY },
         ) {

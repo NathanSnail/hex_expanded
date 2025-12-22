@@ -1,6 +1,6 @@
 package io.github.nathansnail.hex_expanded.mixin;
 
-import io.github.nathansnail.hex_expanded.Hex_expanded;
+import io.github.nathansnail.hex_expanded.HexExpanded;
 import org.spongepowered.asm.mixin.Mixin;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
@@ -16,10 +16,10 @@ public abstract class MixinDatagenMain {
         try {
             original.call((Object) strings);
         } catch (Throwable throwable) {
-            Hex_expanded.LOGGER.error("Datagen failed!", throwable);
+            HexExpanded.LOGGER.error("Datagen failed!", throwable);
             System.exit(1);
         }
-        Hex_expanded.LOGGER.info("Datagen succeeded, terminating.");
+        HexExpanded.LOGGER.info("Datagen succeeded, terminating.");
         System.exit(0);
     }
 }

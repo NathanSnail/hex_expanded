@@ -3,7 +3,7 @@ package io.github.nathansnail.hex_expanded.datagen
 import at.petrak.hexcasting.api.casting.ActionRegistryEntry
 import at.petrak.hexcasting.api.mod.HexTags
 import at.petrak.hexcasting.common.lib.HexRegistries
-import io.github.nathansnail.hex_expanded.registry.Hex_expandedActions
+import io.github.nathansnail.hex_expanded.registry.HexExpandedActions
 import java.util.concurrent.CompletableFuture
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.PackOutput
@@ -12,7 +12,7 @@ import net.minecraft.data.tags.TagsProvider
 // see also:
 // https://github.com/FallingColors/HexMod/blob/871f9387a3e1ccf0231a3e90c31e5d8472d46fde/Common/src/main/java/at/petrak/hexcasting/datagen/tag/HexActionTagProvider.java#L18
 // (ignore the "ersatzActionTag" part, it doesn't seem to be necessary anymore)
-class Hex_expandedActionTags(
+class HexExpandedActionTags(
         output: PackOutput,
         provider: CompletableFuture<HolderLookup.Provider>,
 ) : TagsProvider<ActionRegistryEntry>(output, HexRegistries.ACTION, provider) {
@@ -20,7 +20,7 @@ class Hex_expandedActionTags(
         // per-world great spells
         for (entry in
                 arrayOf(
-                        Hex_expandedActions.GREAT_CONGRATULATE,
+                        HexExpandedActions.GREAT_CONGRATULATE,
                 )) {
             tag(HexTags.Actions.CAN_START_ENLIGHTEN).add(entry.key)
             tag(HexTags.Actions.PER_WORLD_PATTERN).add(entry.key)

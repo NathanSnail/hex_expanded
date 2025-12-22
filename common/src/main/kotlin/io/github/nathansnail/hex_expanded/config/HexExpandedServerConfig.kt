@@ -1,7 +1,7 @@
 package io.github.nathansnail.hex_expanded.config
 
 import dev.architectury.event.events.common.PlayerEvent
-import io.github.nathansnail.hex_expanded.Hex_expanded
+import io.github.nathansnail.hex_expanded.HexExpanded
 import io.github.nathansnail.hex_expanded.networking.msg.MsgSyncConfigS2C
 import me.shedaniel.autoconfig.AutoConfig
 import me.shedaniel.autoconfig.ConfigData
@@ -16,7 +16,7 @@ import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.world.InteractionResult
 
-object Hex_expandedServerConfig {
+object HexExpandedServerConfig {
     @JvmStatic lateinit var holder: ConfigHolder<GlobalConfig>
 
     @JvmStatic
@@ -48,7 +48,7 @@ object Hex_expandedServerConfig {
         syncedServerConfig = serverConfig
     }
 
-    @Config(name = Hex_expanded.MODID)
+    @Config(name = HexExpanded.MODID)
     class GlobalConfig(
             @Category("server") @TransitiveObject val server: ServerConfig = ServerConfig(),
     ) : GlobalData()

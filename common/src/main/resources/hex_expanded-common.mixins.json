@@ -8,7 +8,7 @@
   "mixins": [
     "MixinDatagenMain"
   ],
-  "plugin": "io.github.nathansnail.hex_expanded.mixin.Hex_expandedMixinConfigPlugin",
+  "plugin": "io.github.nathansnail.hex_expanded.mixin.HexExpandedMixinConfigPlugin",
   "injectors": {
     "defaultRequire": 1
   }

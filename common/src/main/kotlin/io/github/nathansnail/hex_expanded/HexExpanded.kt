@@ -1,13 +1,13 @@
 package io.github.nathansnail.hex_expanded
 
-import io.github.nathansnail.hex_expanded.config.Hex_expandedServerConfig
-import io.github.nathansnail.hex_expanded.networking.Hex_expandedNetworking
-import io.github.nathansnail.hex_expanded.registry.Hex_expandedActions
+import io.github.nathansnail.hex_expanded.config.HexExpandedServerConfig
+import io.github.nathansnail.hex_expanded.networking.HexExpandedNetworking
+import io.github.nathansnail.hex_expanded.registry.HexExpandedActions
 import net.minecraft.resources.ResourceLocation
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 
-object Hex_expanded {
+object HexExpanded {
     const val MODID = "hex_expanded"
 
     @JvmField val LOGGER: Logger = LogManager.getLogger(MODID)
@@ -15,14 +15,14 @@ object Hex_expanded {
     @JvmStatic fun id(path: String) = ResourceLocation(MODID, path)
 
     fun init() {
-        Hex_expandedServerConfig.init()
+        HexExpandedServerConfig.init()
         initRegistries(
-                Hex_expandedActions,
+                HexExpandedActions,
         )
-        Hex_expandedNetworking.init()
+        HexExpandedNetworking.init()
     }
 
     fun initServer() {
-        Hex_expandedServerConfig.initServer()
+        HexExpandedServerConfig.initServer()
     }
 }

@@ -1,15 +1,15 @@
 package io.github.nathansnail.hex_expanded.registry
 
 import dev.architectury.platform.Platform
-import io.github.nathansnail.hex_expanded.Hex_expanded
+import io.github.nathansnail.hex_expanded.HexExpanded
 import net.fabricmc.api.EnvType
 import net.minecraft.core.Registry
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 
-typealias RegistrarEntry<T> = Hex_expandedRegistrar<T>.Entry<out T>
+typealias RegistrarEntry<T> = HexExpandedRegistrar<T>.Entry<out T>
 
-abstract class Hex_expandedRegistrar<T : Any>(
+abstract class HexExpandedRegistrar<T : Any>(
         val registryKey: ResourceKey<Registry<T>>,
         getRegistry: () -> Registry<T>,
 ) {
@@ -35,7 +35,7 @@ abstract class Hex_expandedRegistrar<T : Any>(
     open fun initClient() {}
 
     fun <V : T> register(name: String, builder: () -> V): Entry<V> =
-            register(Hex_expanded.id(name), builder)
+            register(HexExpanded.id(name), builder)
 
     fun <V : T> register(id: ResourceLocation, builder: () -> V): Entry<V> =
             register(
@@ -67,7 +67,7 @@ abstract class Hex_expandedRegistrar<T : Any>(
 
         override fun equals(other: Any?) =
                 when (other) {
-                    is Hex_expandedRegistrar<*>.Entry<*> ->
+                    is HexExpandedRegistrar<*>.Entry<*> ->
                             key.registry().equals(other.key.registry()) && id.equals(other.id)
                     else -> false
                 }

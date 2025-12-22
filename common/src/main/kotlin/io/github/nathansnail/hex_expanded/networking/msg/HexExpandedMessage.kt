@@ -2,8 +2,8 @@ package io.github.nathansnail.hex_expanded.networking.msg
 
 import dev.architectury.networking.NetworkChannel
 import dev.architectury.networking.NetworkManager.PacketContext
-import io.github.nathansnail.hex_expanded.Hex_expanded
-import io.github.nathansnail.hex_expanded.networking.Hex_expandedNetworking
+import io.github.nathansnail.hex_expanded.HexExpanded
+import io.github.nathansnail.hex_expanded.networking.HexExpandedNetworking
 import io.github.nathansnail.hex_expanded.networking.handler.applyOnClient
 import io.github.nathansnail.hex_expanded.networking.handler.applyOnServer
 import java.util.function.Supplier
@@ -11,25 +11,25 @@ import net.fabricmc.api.EnvType
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.server.level.ServerPlayer
 
-sealed interface Hex_expandedMessage
+sealed interface HexExpandedMessage
 
-sealed interface Hex_expandedMessageC2S : Hex_expandedMessage {
+sealed interface HexExpandedMessageC2S : HexExpandedMessage {
     fun sendToServer() {
-        Hex_expandedNetworking.CHANNEL.sendToServer(this)
+        HexExpandedNetworking.CHANNEL.sendToServer(this)
     }
 }
 
-sealed interface Hex_expandedMessageS2C : Hex_expandedMessage {
+sealed interface HexExpandedMessageS2C : HexExpandedMessage {
     fun sendToPlayer(player: ServerPlayer) {
-        Hex_expandedNetworking.CHANNEL.sendToPlayer(player, this)
+        HexExpandedNetworking.CHANNEL.sendToPlayer(player, this)
     }
 
     fun sendToPlayers(players: Iterable<ServerPlayer>) {
-        Hex_expandedNetworking.CHANNEL.sendToPlayers(players, this)
+        HexExpandedNetworking.CHANNEL.sendToPlayers(players, this)
     }
 }
 
-sealed interface Hex_expandedMessageCompanion<T : Hex_expandedMessage> {
+sealed interface HexExpandedMessageCompanion<T : HexExpandedMessage> {
     val type: Class<T>
 
     fun decode(buf: FriendlyByteBuf): T
@@ -40,26 +40,26 @@ sealed interface Hex_expandedMessageCompanion<T : Hex_expandedMessage> {
         val ctx = supplier.get()
         when (ctx.env) {
             EnvType.SERVER, null -> {
-                Hex_expanded.LOGGER.debug(
+                HexExpanded.LOGGER.debug(
                         "Server received packet from {}: {}",
                         ctx.player.name.string,
                         this
                 )
                 when (msg) {
-                    is Hex_expandedMessageC2S -> msg.applyOnServer(ctx)
+                    is HexExpandedMessageC2S -> msg.applyOnServer(ctx)
                     else ->
-                            Hex_expanded.LOGGER.warn(
+                            HexExpanded.LOGGER.warn(
                                     "Message not handled on server: {}",
                                     msg::class
                             )
                 }
             }
             EnvType.CLIENT -> {
-                Hex_expanded.LOGGER.debug("Client received packet: {}", this)
+                HexExpanded.LOGGER.debug("Client received packet: {}", this)
                 when (msg) {
-                    is Hex_expandedMessageS2C -> msg.applyOnClient(ctx)
+                    is HexExpandedMessageS2C -> msg.applyOnClient(ctx)
                     else ->
-                            Hex_expanded.LOGGER.warn(
+                            HexExpanded.LOGGER.warn(
                                     "Message not handled on client: {}",
                                     msg::class
                             )

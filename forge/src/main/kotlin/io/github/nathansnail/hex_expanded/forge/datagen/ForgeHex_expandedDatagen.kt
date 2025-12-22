@@ -1,12 +1,12 @@
 package io.github.nathansnail.hex_expanded.forge.datagen
 
 import at.petrak.hexcasting.forge.datagen.TagsProviderEFHSetter
-import io.github.nathansnail.hex_expanded.datagen.Hex_expandedActionTags
+import io.github.nathansnail.hex_expanded.datagen.HexExpandedActionTags
 import net.minecraft.data.DataProvider
 import net.minecraft.data.PackOutput
 import net.minecraftforge.data.event.GatherDataEvent
 
-object ForgeHex_expandedDatagen {
+object ForgeHexExpandedDatagen {
     fun init(event: GatherDataEvent) {
         event.apply {
             // common datagen
@@ -16,7 +16,7 @@ object ForgeHex_expandedDatagen {
 
             // Forge-only datagen
             if (System.getProperty("hex_expanded.forge-datagen") == "true") {
-                addVanillaProvider(includeServer()) { Hex_expandedActionTags(it, lookupProvider) }
+                addVanillaProvider(includeServer()) { HexExpandedActionTags(it, lookupProvider) }
             }
         }
     }

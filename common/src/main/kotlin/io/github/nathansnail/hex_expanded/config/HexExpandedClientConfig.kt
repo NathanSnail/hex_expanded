@@ -1,7 +1,7 @@
 package io.github.nathansnail.hex_expanded.config
 
 import dev.architectury.event.events.client.ClientPlayerEvent
-import io.github.nathansnail.hex_expanded.Hex_expanded
+import io.github.nathansnail.hex_expanded.HexExpanded
 import me.shedaniel.autoconfig.AutoConfig
 import me.shedaniel.autoconfig.ConfigData
 import me.shedaniel.autoconfig.ConfigHolder
@@ -14,7 +14,7 @@ import me.shedaniel.autoconfig.serializer.PartitioningSerializer.GlobalData
 import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer
 import net.minecraft.world.InteractionResult
 
-object Hex_expandedClientConfig {
+object HexExpandedClientConfig {
     @JvmStatic lateinit var holder: ConfigHolder<GlobalConfig>
 
     @JvmStatic
@@ -31,24 +31,24 @@ object Hex_expandedClientConfig {
         // when we change the server config in the client gui, also send it to the server config
         // class
         holder.registerSaveListener { _, config ->
-            Hex_expandedServerConfig.holder.config =
-                    Hex_expandedServerConfig.GlobalConfig(config.server)
+            HexExpandedServerConfig.holder.config =
+                    HexExpandedServerConfig.GlobalConfig(config.server)
             InteractionResult.PASS
         }
 
         // when we leave a server, clear our local copy of its config
         ClientPlayerEvent.CLIENT_PLAYER_QUIT.register { _ ->
-            Hex_expandedServerConfig.onSyncConfig(null)
+            HexExpandedServerConfig.onSyncConfig(null)
         }
     }
 
-    @Config(name = Hex_expanded.MODID)
+    @Config(name = HexExpanded.MODID)
     class GlobalConfig : GlobalData() {
         @Category("server") @TransitiveObject val client = ClientConfig()
 
-        // this should only be used inside of this class; use Hex_expandedServerConfig.config to
+        // this should only be used inside of this class; use HexExpandedServerConfig.config to
         // access the server-side config in other code
-        @Category("server") @TransitiveObject val server = Hex_expandedServerConfig.ServerConfig()
+        @Category("server") @TransitiveObject val server = HexExpandedServerConfig.ServerConfig()
     }
 
     @Config(name = "client")

@@ -1,6 +1,6 @@
 package io.github.nathansnail.hex_expanded.mixin;
 
-import io.github.nathansnail.hex_expanded.Hex_expanded;
+import io.github.nathansnail.hex_expanded.HexExpanded;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
@@ -9,13 +9,13 @@ import java.util.List;
 import java.util.Set;
 
 // disable MixinDatagenMain if we're not running the datagen task, since it's not necessary at any other time
-public class Hex_expandedMixinConfigPlugin implements IMixinConfigPlugin {
+public class HexExpandedMixinConfigPlugin implements IMixinConfigPlugin {
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
         if (mixinClassName.equals("io.github.nathansnail.hex_expanded.mixin.MixinDatagenMain")) {
             var shouldApply = System.getProperty("hex_expanded.apply-datagen-mixin", "false").equals("true");
             if (shouldApply) {
-                Hex_expanded.LOGGER.warn("Applying datagen mixin to {}. This should not happen if not running datagen!", targetClassName);
+                HexExpanded.LOGGER.warn("Applying datagen mixin to {}. This should not happen if not running datagen!", targetClassName);
             }
             return shouldApply;
         }

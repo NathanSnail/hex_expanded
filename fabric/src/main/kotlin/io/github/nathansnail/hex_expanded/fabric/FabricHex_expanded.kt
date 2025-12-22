@@ -1,10 +1,10 @@
 package io.github.nathansnail.hex_expanded.fabric
 
-import io.github.nathansnail.hex_expanded.Hex_expanded
+import io.github.nathansnail.hex_expanded.HexExpanded
 import net.fabricmc.api.ModInitializer
 
-object FabricHex_expanded : ModInitializer {
+object FabricHexExpanded : ModInitializer {
     override fun onInitialize() {
-        Hex_expanded.init()
+        HexExpanded.init()
     }
 }
