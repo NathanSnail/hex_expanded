@@ -7,10 +7,11 @@ import at.petrak.hexcasting.api.casting.eval.CastingEnvironment
 import at.petrak.hexcasting.api.casting.getEntity
 import at.petrak.hexcasting.api.casting.getVec3
 import at.petrak.hexcasting.api.casting.iota.Iota
+import at.petrak.hexcasting.api.casting.mishaps.MishapImmuneEntity
 import at.petrak.hexcasting.api.misc.MediaConstants
+import io.github.nathansnail.hex_expanded.goals.GoToLocationGoal
 import net.minecraft.world.entity.Mob
 import net.minecraft.world.phys.Vec3
-import at.petrak.hexcasting.api.casting.mishaps.MishapImmuneEntity;
 
 object MobGoTo : SpellAction {
     override val argc = 2
@@ -20,20 +21,21 @@ object MobGoTo : SpellAction {
         val pos = args.getVec3(1, argc)
         env.assertEntityInRange(target)
         env.assertVecInRange(pos)
-        val mob = when (target) {
-            is Mob -> target
-            else -> throw MishapImmuneEntity(target)
-        }
+        val mob =
+            when (target) {
+                is Mob -> target
+                else -> throw MishapImmuneEntity(target)
+            }
 
         return SpellAction.Result(
-                Spell(mob, pos),
-                (0.1 * MediaConstants.DUST_UNIT).toLong(),
-                listOf(
-                        ParticleSpray.cloud(
-                                target.position().add(0.0, target.eyeHeight / 2.0, 0.0),
-                                1.0
-                        )
+            Spell(mob, pos),
+            (0.1 * MediaConstants.DUST_UNIT).toLong(),
+            listOf(
+                ParticleSpray.cloud(
+                    target.position().add(0.0, target.eyeHeight / 2.0, 0.0),
+                    1.0
                 )
+            )
         )
     }
 
@@ -41,7 +43,10 @@ object MobGoTo : SpellAction {
         // IMPORTANT: do not throw mishaps in this method! mishaps should ONLY be thrown in
         // SpellAction.execute
         override fun cast(env: CastingEnvironment) {
-            target.moveTo(pos)
+            target.goalSelector.addGoal(
+                0,
+                GoToLocationGoal(pos, target, 1.0)
+            )
         }
     }
 }
