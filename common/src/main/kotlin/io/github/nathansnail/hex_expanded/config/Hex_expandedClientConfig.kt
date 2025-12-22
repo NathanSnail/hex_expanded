@@ -1,6 +1,7 @@
 package io.github.nathansnail.hex_expanded.config
 
 import dev.architectury.event.events.client.ClientPlayerEvent
+import io.github.nathansnail.hex_expanded.Hex_expanded
 import me.shedaniel.autoconfig.AutoConfig
 import me.shedaniel.autoconfig.ConfigData
 import me.shedaniel.autoconfig.ConfigHolder
@@ -12,24 +13,26 @@ import me.shedaniel.autoconfig.serializer.PartitioningSerializer
 import me.shedaniel.autoconfig.serializer.PartitioningSerializer.GlobalData
 import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer
 import net.minecraft.world.InteractionResult
-import io.github.nathansnail.hex_expanded.Hex_expanded
 
 object Hex_expandedClientConfig {
-    @JvmStatic
-    lateinit var holder: ConfigHolder<GlobalConfig>
+    @JvmStatic lateinit var holder: ConfigHolder<GlobalConfig>
 
     @JvmStatic
-    val config get() = holder.config.client
+    val config
+        get() = holder.config.client
 
     fun init() {
-        holder = AutoConfig.register(
-            GlobalConfig::class.java,
-            PartitioningSerializer.wrap(::Toml4jConfigSerializer),
-        )
+        holder =
+                AutoConfig.register(
+                        GlobalConfig::class.java,
+                        PartitioningSerializer.wrap(::Toml4jConfigSerializer),
+                )
 
-        // when we change the server config in the client gui, also send it to the server config class
+        // when we change the server config in the client gui, also send it to the server config
+        // class
         holder.registerSaveListener { _, config ->
-            Hex_expandedServerConfig.holder.config = Hex_expandedServerConfig.GlobalConfig(config.server)
+            Hex_expandedServerConfig.holder.config =
+                    Hex_expandedServerConfig.GlobalConfig(config.server)
             InteractionResult.PASS
         }
 
@@ -41,19 +44,15 @@ object Hex_expandedClientConfig {
 
     @Config(name = Hex_expanded.MODID)
     class GlobalConfig : GlobalData() {
-        @Category("server")
-        @TransitiveObject
-        val client = ClientConfig()
+        @Category("server") @TransitiveObject val client = ClientConfig()
 
-        // this should only be used inside of this class; use Hex_expandedServerConfig.config to access the server-side config in other code
-        @Category("server")
-        @TransitiveObject
-        val server = Hex_expandedServerConfig.ServerConfig()
+        // this should only be used inside of this class; use Hex_expandedServerConfig.config to
+        // access the server-side config in other code
+        @Category("server") @TransitiveObject val server = Hex_expandedServerConfig.ServerConfig()
     }
 
     @Config(name = "client")
     class ClientConfig : ConfigData {
-        @Tooltip
-        val dummyClientConfigOption: Boolean = true
+        @Tooltip val dummyClientConfigOption: Boolean = true
     }
 }

@@ -1,6 +1,8 @@
 package io.github.nathansnail.hex_expanded.config
 
 import dev.architectury.event.events.common.PlayerEvent
+import io.github.nathansnail.hex_expanded.Hex_expanded
+import io.github.nathansnail.hex_expanded.networking.msg.MsgSyncConfigS2C
 import me.shedaniel.autoconfig.AutoConfig
 import me.shedaniel.autoconfig.ConfigData
 import me.shedaniel.autoconfig.ConfigHolder
@@ -13,26 +15,26 @@ import me.shedaniel.autoconfig.serializer.PartitioningSerializer.GlobalData
 import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.world.InteractionResult
-import io.github.nathansnail.hex_expanded.Hex_expanded
-import io.github.nathansnail.hex_expanded.networking.msg.MsgSyncConfigS2C
 
 object Hex_expandedServerConfig {
-    @JvmStatic
-    lateinit var holder: ConfigHolder<GlobalConfig>
+    @JvmStatic lateinit var holder: ConfigHolder<GlobalConfig>
 
     @JvmStatic
-    val config get() = syncedServerConfig ?: holder.config.server
+    val config
+        get() = syncedServerConfig ?: holder.config.server
 
     // only used on the client
     private var syncedServerConfig: ServerConfig? = null
 
     fun init() {
-        holder = AutoConfig.register(
-            GlobalConfig::class.java,
-            PartitioningSerializer.wrap(::Toml4jConfigSerializer),
-        )
+        holder =
+                AutoConfig.register(
+                        GlobalConfig::class.java,
+                        PartitioningSerializer.wrap(::Toml4jConfigSerializer),
+                )
 
-        // prevent this holder from saving the server config; that happens in the client config gui
+        // prevent this holder from saving the server config; that happens in the client config
+        // gui
         holder.registerSaveListener { _, _ -> InteractionResult.FAIL }
     }
 
@@ -48,9 +50,7 @@ object Hex_expandedServerConfig {
 
     @Config(name = Hex_expanded.MODID)
     class GlobalConfig(
-        @Category("server")
-        @TransitiveObject
-        val server: ServerConfig = ServerConfig(),
+            @Category("server") @TransitiveObject val server: ServerConfig = ServerConfig(),
     ) : GlobalData()
 
     @Config(name = "server")

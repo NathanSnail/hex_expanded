@@ -10,8 +10,8 @@ import net.minecraft.resources.ResourceLocation
 typealias RegistrarEntry<T> = Hex_expandedRegistrar<T>.Entry<out T>
 
 abstract class Hex_expandedRegistrar<T : Any>(
-    val registryKey: ResourceKey<Registry<T>>,
-    getRegistry: () -> Registry<T>,
+        val registryKey: ResourceKey<Registry<T>>,
+        getRegistry: () -> Registry<T>,
 ) {
     /** Do not access until the mod has been initialized! */
     val registry by lazy(getRegistry)
@@ -34,22 +34,29 @@ abstract class Hex_expandedRegistrar<T : Any>(
 
     open fun initClient() {}
 
-    fun <V : T> register(name: String, builder: () -> V): Entry<V> = register(Hex_expanded.id(name), builder)
+    fun <V : T> register(name: String, builder: () -> V): Entry<V> =
+            register(Hex_expanded.id(name), builder)
 
-    fun <V : T> register(id: ResourceLocation, builder: () -> V): Entry<V> = register(id, lazy {
-        if (!isInitialized) throw IllegalStateException("$this has not been initialized!")
-        builder()
-    })
+    fun <V : T> register(id: ResourceLocation, builder: () -> V): Entry<V> =
+            register(
+                    id,
+                    lazy {
+                        if (!isInitialized)
+                                throw IllegalStateException("$this has not been initialized!")
+                        builder()
+                    }
+            )
 
-    fun <V : T> register(id: ResourceLocation, lazyValue: Lazy<V>): Entry<V> = Entry(id, lazyValue).also {
-        if (!mutableEntries.add(it)) {
-            throw IllegalArgumentException("Duplicate id: $id")
-        }
-    }
+    fun <V : T> register(id: ResourceLocation, lazyValue: Lazy<V>): Entry<V> =
+            Entry(id, lazyValue).also {
+                if (!mutableEntries.add(it)) {
+                    throw IllegalArgumentException("Duplicate id: $id")
+                }
+            }
 
     open inner class Entry<V : T>(
-        val id: ResourceLocation,
-        private val lazyValue: Lazy<V>,
+            val id: ResourceLocation,
+            private val lazyValue: Lazy<V>,
     ) {
         constructor(entry: Entry<V>) : this(entry.id, entry.lazyValue)
 
@@ -58,10 +65,12 @@ abstract class Hex_expandedRegistrar<T : Any>(
         /** Do not access until the mod has been initialized! */
         val value by lazyValue
 
-        override fun equals(other: Any?) = when (other) {
-            is Hex_expandedRegistrar<*>.Entry<*> -> key.registry().equals(other.key.registry()) && id.equals(other.id)
-            else -> false
-        }
+        override fun equals(other: Any?) =
+                when (other) {
+                    is Hex_expandedRegistrar<*>.Entry<*> ->
+                            key.registry().equals(other.key.registry()) && id.equals(other.id)
+                    else -> false
+                }
 
         override fun hashCode() = 31 * key.registry().hashCode() + id.hashCode()
     }

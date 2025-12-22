@@ -10,6 +10,7 @@ object Hex_expandedClient {
     }
 
     fun getConfigScreen(parent: Screen): Screen {
-        return AutoConfig.getConfigScreen(Hex_expandedClientConfig.GlobalConfig::class.java, parent).get()
+        return AutoConfig.getConfigScreen(Hex_expandedClientConfig.GlobalConfig::class.java, parent)
+                .get()
     }
 }

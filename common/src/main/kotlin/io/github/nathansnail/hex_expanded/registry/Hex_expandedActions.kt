@@ -8,18 +8,21 @@ import at.petrak.hexcasting.common.lib.HexRegistries
 import at.petrak.hexcasting.common.lib.hex.HexActions
 import io.github.nathansnail.hex_expanded.casting.actions.spells.OpCongratulate
 
-object Hex_expandedActions : Hex_expandedRegistrar<ActionRegistryEntry>(
-    HexRegistries.ACTION,
-    { HexActions.REGISTRY },
-) {
+object Hex_expandedActions :
+        Hex_expandedRegistrar<ActionRegistryEntry>(
+                HexRegistries.ACTION,
+                { HexActions.REGISTRY },
+        ) {
     val CONGRATULATE = make("congratulate", HexDir.WEST, "eed", OpCongratulate)
 
-    val GREAT_CONGRATULATE = make("congratulate/great", HexDir.EAST, "qwwqqqwwqwded", OpCongratulate)
+    val GREAT_CONGRATULATE =
+            make("congratulate/great", HexDir.EAST, "qwwqqqwwqwded", OpCongratulate)
 
     private fun make(name: String, startDir: HexDir, signature: String, action: Action) =
-        make(name, startDir, signature) { action }
+            make(name, startDir, signature) { action }
 
-    private fun make(name: String, startDir: HexDir, signature: String, getAction: () -> Action) = register(name) {
-        ActionRegistryEntry(HexPattern.fromAngles(signature, startDir), getAction())
-    }
+    private fun make(name: String, startDir: HexDir, signature: String, getAction: () -> Action) =
+            register(name) {
+                ActionRegistryEntry(HexPattern.fromAngles(signature, startDir), getAction())
+            }
 }
