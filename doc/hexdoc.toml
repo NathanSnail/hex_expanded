@@ -33,7 +33,7 @@ show_landing_text = false
 _pattern_regex = { "!Raw"='make\("(?P<name>[^"]+)",\s*HexDir\.(?P<startdir>\w+),\s*"(?P<signature>[qweasd]+)"' }
 
 [[extra.hexcasting.pattern_stubs]]
-path = "{$_common.kotlin}/registry/Hex_expandedActions.kt"
+path = "{$_common.kotlin}/registry/HexExpandedActions.kt"
 regex = "{^_pattern_regex}"
 
 # platforms

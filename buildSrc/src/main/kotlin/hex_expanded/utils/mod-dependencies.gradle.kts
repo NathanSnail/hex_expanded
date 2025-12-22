@@ -6,7 +6,7 @@ plugins {
 
 // plugin config
 
-abstract class Hex_expandedModDependenciesExtension(private val project: Project) {
+abstract class HexExpandedModDependenciesExtension(private val project: Project) {
     abstract val filesMatching: ListProperty<String>
     abstract val anyVersion: Property<String>
 
@@ -63,7 +63,7 @@ abstract class Hex_expandedModDependenciesExtension(private val project: Project
     }
 }
 
-val extension = extensions.create<Hex_expandedModDependenciesExtension>("hex_expandedModDependencies")
+val extension = extensions.create<HexExpandedModDependenciesExtension>("hex_expandedModDependencies")
 
 // build logic
 

@@ -62,7 +62,7 @@ sources = ["doc/src"]
 # hexdoc entry point
 
 [project.entry-points.hexdoc]
-hex_expanded = "hexdoc_hex_expanded._hooks:Hex_expandedPlugin"
+hex_expanded = "hexdoc_hex_expanded._hooks:HexExpandedPlugin"
 
 # linting
 

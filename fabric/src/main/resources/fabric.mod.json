@@ -17,23 +17,23 @@
   "entrypoints": {
     "main": [{
       "adapter": "kotlin",
-      "value": "io.github.nathansnail.hex_expanded.fabric.FabricHex_expanded"
+      "value": "io.github.nathansnail.hex_expanded.fabric.FabricHexExpanded"
     }],
     "client": [{
       "adapter": "kotlin",
-      "value": "io.github.nathansnail.hex_expanded.fabric.FabricHex_expandedClient"
+      "value": "io.github.nathansnail.hex_expanded.fabric.FabricHexExpandedClient"
     }],
     "server": [{
       "adapter": "kotlin",
-      "value": "io.github.nathansnail.hex_expanded.fabric.FabricHex_expandedServer"
+      "value": "io.github.nathansnail.hex_expanded.fabric.FabricHexExpandedServer"
     }],
     "fabric-datagen": [{
       "adapter": "kotlin",
-      "value": "io.github.nathansnail.hex_expanded.fabric.datagen.FabricHex_expandedDatagen"
+      "value": "io.github.nathansnail.hex_expanded.fabric.datagen.FabricHexExpandedDatagen"
     }],
     "modmenu": [{
       "adapter": "kotlin",
-      "value": "io.github.nathansnail.hex_expanded.fabric.FabricHex_expandedModMenu"
+      "value": "io.github.nathansnail.hex_expanded.fabric.FabricHexExpandedModMenu"
     }]
   },
   "mixins": [
