@@ -8,15 +8,19 @@ class GoToLocationGoal : Goal {
     var location: Vec3
     var mob: Mob
     var speedModifier: Double
+    var recalculatePathTicks: Int = 0
+    var acceptedDistance: Double
 
     constructor(
         location: Vec3,
         mob: Mob,
         speedModifier: Double,
+        acceptedDistance: Double,
     ) {
         this.location = location
         this.mob = mob
         this.speedModifier = speedModifier
+        this.acceptedDistance = acceptedDistance
     }
 
     override fun canUse(): Boolean {
@@ -24,7 +28,14 @@ class GoToLocationGoal : Goal {
     }
 
     private fun go() {
-        this.mob.navigation.moveTo(location.x, location.y, location.z, speedModifier)
+        if (this.mob.position().subtract(this.location).length() < this.acceptedDistance) {
+            this.mob.removeAllGoals { goal -> goal == this }
+        }
+        if (this.recalculatePathTicks == 0) {
+            this.mob.navigation.moveTo(location.x, location.y, location.z, speedModifier)
+            this.recalculatePathTicks = 40
+        }
+        this.recalculatePathTicks--
     }
 
     override fun start() {
@@ -33,5 +44,9 @@ class GoToLocationGoal : Goal {
 
     override fun tick() {
         go()
+    }
+
+    override fun requiresUpdateEveryTick(): Boolean {
+        return true
     }
 }

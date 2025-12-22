@@ -45,7 +45,7 @@ object MobGoTo : SpellAction {
         override fun cast(env: CastingEnvironment) {
             target.goalSelector.addGoal(
                 0,
-                GoToLocationGoal(pos, target, 1.0)
+                GoToLocationGoal(pos, target, 1.0, 1.0)
             )
         }
     }
