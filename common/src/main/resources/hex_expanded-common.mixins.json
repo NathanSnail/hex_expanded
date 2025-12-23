@@ -1,15 +1,16 @@
 {
-  "required": true,
-  "package": "io.github.nathansnail.hex_expanded.mixin",
-  "compatibilityLevel": "JAVA_17",
-  "minVersion": "0.8",
-  "client": [
-  ],
-  "mixins": [
-    "MixinDatagenMain"
-  ],
-  "plugin": "io.github.nathansnail.hex_expanded.mixin.HexExpandedMixinConfigPlugin",
-  "injectors": {
-    "defaultRequire": 1
-  }
+    "required": true,
+    "package": "io.github.nathansnail.hex_expanded.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "minVersion": "0.8",
+    "client": [
+    ],
+    "mixins": [
+        "MixinDatagenMain",
+        "MixinGoalRemoveTemporary"
+    ],
+    "plugin": "io.github.nathansnail.hex_expanded.mixin.HexExpandedMixinConfigPlugin",
+    "injectors": {
+        "defaultRequire": 1
+    }
 }

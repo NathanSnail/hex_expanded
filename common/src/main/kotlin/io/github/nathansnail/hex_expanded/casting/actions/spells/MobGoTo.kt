@@ -11,6 +11,7 @@ import at.petrak.hexcasting.api.casting.mishaps.MishapImmuneEntity
 import at.petrak.hexcasting.api.misc.MediaConstants
 import io.github.nathansnail.hex_expanded.goals.GoToLocationGoal
 import net.minecraft.world.entity.Mob
+import net.minecraft.world.entity.ai.goal.GoalSelector
 import net.minecraft.world.phys.Vec3
 
 object MobGoTo : SpellAction {
@@ -43,10 +44,15 @@ object MobGoTo : SpellAction {
         // IMPORTANT: do not throw mishaps in this method! mishaps should ONLY be thrown in
         // SpellAction.execute
         override fun cast(env: CastingEnvironment) {
+            target.goalSelector.stopAllGoals()
             target.goalSelector.addGoal(
                 0,
                 GoToLocationGoal(pos, target, 1.0, 1.0)
             )
         }
     }
+}
+
+private fun GoalSelector.stopAllGoals() {
+    this.availableGoals.stream().forEach { goal -> goal.stop() }
 }
