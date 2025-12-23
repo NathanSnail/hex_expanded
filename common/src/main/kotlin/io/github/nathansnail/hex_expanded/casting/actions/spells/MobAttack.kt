@@ -29,6 +29,10 @@ object MobAttack : SpellAction {
             throw MishapImmuneEntity(target)
         }
 
+        if (target == mob) {
+            throw MishapImmuneEntity(target)
+        }
+
         return SpellAction.Result(
             Spell(mob, target),
             (0.1 * MediaConstants.DUST_UNIT).toLong(),
