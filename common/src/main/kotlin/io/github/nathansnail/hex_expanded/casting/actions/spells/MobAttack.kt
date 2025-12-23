@@ -11,7 +11,8 @@ import at.petrak.hexcasting.api.misc.MediaConstants
 import io.github.nathansnail.hex_expanded.ext.stopAllGoals
 import io.github.nathansnail.hex_expanded.goals.AttackTargetGoal
 import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.entity.Mob
+import net.minecraft.world.entity.PathfinderMob
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal
 
 object MobAttack : SpellAction {
     override val argc = 2
@@ -21,7 +22,7 @@ object MobAttack : SpellAction {
         val target = args.getEntity(1, argc)
         env.assertEntityInRange(mob)
         env.assertEntityInRange(target)
-        if (mob !is Mob) {
+        if (mob !is PathfinderMob) {
             throw MishapImmuneEntity(mob)
         }
 
@@ -49,15 +50,17 @@ object MobAttack : SpellAction {
         )
     }
 
-    private data class Spell(val mob: Mob, val target: LivingEntity) : RenderedSpell {
+    private data class Spell(val mob: PathfinderMob, val target: LivingEntity) : RenderedSpell {
         // IMPORTANT: do not throw mishaps in this method! mishaps should ONLY be thrown in
         // SpellAction.execute
         override fun cast(env: CastingEnvironment) {
+            mob.goalSelector.stopAllGoals()
             mob.goalSelector.stopAllGoals()
             mob.goalSelector.addGoal(
                 0,
                 AttackTargetGoal(mob, target)
             )
+            mob.goalSelector.addGoal(1, MeleeAttackGoal(mob, 1.0, false))
         }
     }
 }

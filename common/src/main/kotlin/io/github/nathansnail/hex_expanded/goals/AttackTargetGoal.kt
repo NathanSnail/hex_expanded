@@ -11,6 +11,7 @@ class AttackTargetGoal(mob: Mob, val target: LivingEntity) : TemporaryGoal(mob) 
             return
         }
         mob.target = target
+        mob.isAggressive = true
     }
 
     override fun start() {
