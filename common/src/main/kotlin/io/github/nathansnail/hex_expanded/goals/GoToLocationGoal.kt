@@ -3,40 +3,21 @@ package io.github.nathansnail.hex_expanded.goals
 import io.github.nathansnail.hex_expanded.HexExpanded
 import net.minecraft.world.entity.Mob
 import net.minecraft.world.phys.Vec3
-import java.util.*
 
-class GoToLocationGoal : TemporaryGoal {
-    private var location: Vec3
-    private var speedModifier: Double
+class GoToLocationGoal(mob: Mob, val location: Vec3, val speedModifier: Double, val acceptedDistance: Double) :
+    TemporaryGoal(mob) {
     private var recalculatePathTicks: Int = 0
-    private var acceptedDistance: Double
-
-    constructor(
-        location: Vec3,
-        mob: Mob,
-        speedModifier: Double,
-        acceptedDistance: Double,
-    ) : super(mob) {
-        this.location = location
-        this.speedModifier = speedModifier
-        this.acceptedDistance = acceptedDistance
-        this.flags = EnumSet.of<Flag?>(Flag.MOVE, Flag.JUMP)
-    }
-
-    override fun canUse(): Boolean {
-        return true
-    }
 
     private fun go() {
-        if (this.recalculatePathTicks == 0) {
-            this.mob.navigation.moveTo(location.x, location.y, location.z, speedModifier)
-            this.recalculatePathTicks = 40
+        if (recalculatePathTicks == 0) {
+            mob.navigation.moveTo(location.x, location.y, location.z, speedModifier)
+            recalculatePathTicks = 40
         }
-        if (this.mob.navigation.path?.isDone ?: false) {
-            this.finish()
+        if (mob.navigation.path?.isDone ?: false) {
+            finish()
             return
         }
-        this.recalculatePathTicks--
+        recalculatePathTicks--
     }
 
     override fun start() {

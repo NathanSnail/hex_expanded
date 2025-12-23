@@ -13,6 +13,7 @@ abstract class TemporaryGoal : Goal {
     }
 
     override fun canContinueToUse() = !finished
+    override fun canUse() = !finished
 
     fun finish() {
         this.finished = true
