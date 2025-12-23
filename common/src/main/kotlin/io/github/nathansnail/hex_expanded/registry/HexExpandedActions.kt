@@ -6,23 +6,25 @@ import at.petrak.hexcasting.api.casting.math.HexDir
 import at.petrak.hexcasting.api.casting.math.HexPattern
 import at.petrak.hexcasting.common.lib.HexRegistries
 import at.petrak.hexcasting.common.lib.hex.HexActions
+import io.github.nathansnail.hex_expanded.casting.actions.spells.MobAttack
 import io.github.nathansnail.hex_expanded.casting.actions.spells.MobGoTo
 
 object HexExpandedActions :
-        HexExpandedRegistrar<ActionRegistryEntry>(
-                HexRegistries.ACTION,
-                { HexActions.REGISTRY },
-        ) {
-    val CONGRATULATE = make("congratulate", HexDir.WEST, "eed", MobGoTo)
+    HexExpandedRegistrar<ActionRegistryEntry>(
+        HexRegistries.ACTION,
+        { HexActions.REGISTRY },
+    ) {
+    val MOB_GOTO = make("mob_goto", HexDir.WEST, "eed", MobGoTo)
+    val MOB_ATTACK = make("mob_attack", HexDir.WEST, "eeed", MobAttack)
 
     val GREAT_CONGRATULATE =
-            make("congratulate/great", HexDir.EAST, "qwwqqqwwqwded", MobGoTo)
+        make("congratulate/great", HexDir.EAST, "qwwqqqwwqwded", MobGoTo)
 
     private fun make(name: String, startDir: HexDir, signature: String, action: Action) =
-            make(name, startDir, signature) { action }
+        make(name, startDir, signature) { action }
 
     private fun make(name: String, startDir: HexDir, signature: String, getAction: () -> Action) =
-            register(name) {
-                ActionRegistryEntry(HexPattern.fromAngles(signature, startDir), getAction())
-            }
+        register(name) {
+            ActionRegistryEntry(HexPattern.fromAngles(signature, startDir), getAction())
+        }
 }
