@@ -28,13 +28,13 @@ class GoToLocationGoal : TemporaryGoal {
     }
 
     private fun go() {
-        if (this.mob.position().subtract(this.location).length() < this.acceptedDistance) {
-            this.finish()
-            return
-        }
         if (this.recalculatePathTicks == 0) {
             this.mob.navigation.moveTo(location.x, location.y, location.z, speedModifier)
             this.recalculatePathTicks = 40
+        }
+        if (this.mob.navigation.path?.isDone ?: false) {
+            this.finish()
+            return
         }
         this.recalculatePathTicks--
     }
